@@ -67,6 +67,7 @@ function Login() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
+              autoComplete="Current-Password"
               fullWidth
             />
             <Link to="/root/home">
@@ -82,8 +83,9 @@ function Login() {
             <Typography>
               <Link to="#">Forgot password ?</Link>
             </Typography>
+
             <Typography>
-              Do you have an account ?<Link to="#">Sign Up</Link>
+              Do you have an account ?<Link to="/signup">Sign Up</Link>
             </Typography>
           </form>
         </Paper>
