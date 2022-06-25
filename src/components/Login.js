@@ -3,6 +3,7 @@ import React from "react";
 import { useState } from "react";
 import "./login.css";
 import { Link } from "react-router-dom";
+import axios from "axios";
 import {
   Button,
   Grid,
@@ -13,17 +14,25 @@ import {
 } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
+const BASE_URL = "http://localhost:3000/api";
+
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [credential, setCredential] = useState([]);
 
   const submitForm = (e) => {
     e.preventDefault();
 
-    const newCredential = { email: email, password: password };
+    const data = { email: email, password: password };
 
-    setCredential([...credential, newCredential]);
+    axios
+    .post(`${BASE_URL}/login`, data)
+    .then((response) => {
+      console.log(response.data.msg)
+    })
+    .catch((err) => {
+      console.log(err.response.data.msg);
+    });
   };
 
   const paperStyle = {
@@ -46,12 +55,12 @@ function Login() {
             </Avatar>
             <h2>Sign In</h2>
           </Grid>
-          <form className="Form" action="" onSubmit={submitForm}>
+          <form className="Form" method="post" onSubmit={submitForm}>
             <TextField
               style={fieldStyle}
               variant="filled"
               id="email"
-              label="email"
+              label="Email"
               type="text"
               value={email}
               required
@@ -70,16 +79,14 @@ function Login() {
               autoComplete="Current-Password"
               fullWidth
             />
-            <Link to="/root/home">
-              <Button
-                style={buttonStyle}
-                type="submit"
-                variant="contained"
-                fullWidth
-              >
-                Login
-              </Button>
-            </Link>
+            <Button
+              style={buttonStyle}
+              type="submit"
+              variant="contained"
+              fullWidth
+            >
+              Login
+            </Button>
             <Typography>
               <Link to="#">Forgot password ?</Link>
             </Typography>
