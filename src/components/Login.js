@@ -20,21 +20,6 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const submitForm = (e) => {
-    e.preventDefault();
-
-    const data = { email: email, password: password };
-
-    axios
-    .post(`${BASE_URL}/login`, data)
-    .then((response) => {
-      console.log(response.data.msg)
-    })
-    .catch((err) => {
-      console.log(err.response.data.msg);
-    });
-  };
-
   const paperStyle = {
     padding: 20,
     height: "70vh",
@@ -44,6 +29,21 @@ function Login() {
   const avatarStyle = { backgroundColor: "#1ab5df", ml: "10px" };
   const fieldStyle = { align: "center", margin: "20px auto " };
   const buttonStyle = { margin: "10px auto", backgroundColor: "green" };
+
+  const submitForm = (e) => {
+    e.preventDefault();
+
+    const data = { email: email, password: password };
+
+    axios
+      .post(`${BASE_URL}/login`, data)
+      .then((response) => {
+        console.log(response.data.msg);
+      })
+      .catch((err) => {
+        console.log(err.response.data.msg);
+      });
+  };
 
   return (
     <>

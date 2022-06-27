@@ -1,18 +1,47 @@
-import { Grid, Paper, TextField } from "@mui/material";
+import { Grid, Paper, TextField, Button } from "@mui/material";
 import React, { useState } from "react";
+import axios from "axios";
 
 function SignUp() {
-  const [validation, setValidation] = useState({
-    firstName: " ",
-    lastName: " ",
-    dateOfBirth: " ",
-    email: " ",
-    userName: " ",
-    password: " ",
-  });
-  const onValidation = (e) => {
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [userName, setUserName] = useState("");
+  const [password, setPassword] = useState("");
+  const buttonStyle = { margin: "10px auto", backgroundColor: "green" };
+
+  const BASE_URL = "http://localhost:3000/api";
+  // const [validation, setValidation] = useState({
+  //   firstName: " ",
+  //   lastName: " ",
+  //   dateOfBirth: " ",
+  //   email: " ",
+  //   userName: " ",
+  //   password: " ",
+  // });
+  // const onClick = (e) => {
+  //   e.preventDefault();
+  //   const value = e.target.value;
+  //   setValidation({ ...validation, [value]: value });
+  // };
+  const submitForm = (e) => {
     e.preventDefault();
-    setValidation(e.target.value);
+    const a = 0;
+    const data = {
+      id: a,
+      fullName: fullName,
+      userName: userName,
+      email: email,
+      password: password,
+    };
+
+    axios
+      .post(`${BASE_URL}/registration`, data)
+      .then((response) => {
+        console.log(response.data.msg);
+      })
+      .catch((err) => {
+        console.log(err.response.data.msg);
+      });
   };
   const paperStyle = {
     padding: 20,
@@ -21,35 +50,68 @@ function SignUp() {
     margin: "20px  auto",
   };
   const fieldStyle = { align: "center", margin: "20px auto " };
-
   return (
     <div>
-      <Grid>
-        <Paper elivation={10} style={paperStyle}>
-          <TextField
-            style={fieldStyle}
-            variant="filled"
-            id="firstName"
-            type="text"
-            value={validation.firstName}
-            label="First Name"
-            onChange={onValidation}
-            fullWidth
-            required
-          ></TextField>
-          <TextField
-            style={fieldStyle}
-            variant="filled"
-            id="firstName"
-            type="text"
-            value={validation.lastName}
-            label="Last Name"
-            onChange={onValidation}
-            fullWidth
-            required
-          ></TextField>
-        </Paper>
-      </Grid>
+      <form className="Form" method="post" onSubmit={submitForm}>
+        <Grid>
+          <Paper elivation={10} style={paperStyle}>
+            <TextField
+              style={fieldStyle}
+              variant="filled"
+              id="FullName"
+              type="text"
+              value={fullName}
+              label="Full Name"
+              onChange={(e) => setFullName(e.target.value)}
+              fullWidth
+              required
+            ></TextField>
+            <TextField
+              style={fieldStyle}
+              variant="filled"
+              id="userName"
+              type="text"
+              value={userName}
+              label="User Name"
+              onChange={(e) => setUserName(e.target.value)}
+              fullWidth
+              required
+            ></TextField>
+            <TextField
+              style={fieldStyle}
+              variant="filled"
+              id="Email"
+              type="email"
+              value={email}
+              label="Email"
+              onChange={(e) => setEmail(e.target.value)}
+              fullWidth
+              required
+            ></TextField>
+
+            <TextField
+              style={fieldStyle}
+              variant="filled"
+              id="Password"
+              type="password"
+              value={password}
+              label="Password"
+              onChange={(e) => setPassword(e.target.value)}
+              fullWidth
+              autoComplete="off"
+              required
+            ></TextField>
+            <Button
+              style={buttonStyle}
+              type="submit"
+              variant="contained"
+              fullWidth
+            >
+              SignUp
+            </Button>
+          </Paper>
+        </Grid>
+      </form>
     </div>
   );
 }
