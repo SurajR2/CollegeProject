@@ -4,38 +4,21 @@ import axios from "axios";
 
 function SignUp() {
   const [fullName, setFullName] = useState("");
-  const [email, setEmail] = useState("");
   const [userName, setUserName] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const buttonStyle = { margin: "10px auto", backgroundColor: "green" };
-
   const BASE_URL = "http://localhost:3000/api";
-  // const [validation, setValidation] = useState({
-  //   firstName: " ",
-  //   lastName: " ",
-  //   dateOfBirth: " ",
-  //   email: " ",
-  //   userName: " ",
-  //   password: " ",
-  // });
-  // const onClick = (e) => {
-  //   e.preventDefault();
-  //   const value = e.target.value;
-  //   setValidation({ ...validation, [value]: value });
-  // };
   const submitForm = (e) => {
     e.preventDefault();
-    const a = 0;
     const data = {
-      id: a,
       fullName: fullName,
       userName: userName,
       email: email,
       password: password,
     };
-
     axios
-      .post(`${BASE_URL}/registration`, data)
+      .post(`${BASE_URL}/users`, data)
       .then((response) => {
         console.log(response.data.msg);
       })
