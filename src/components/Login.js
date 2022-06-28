@@ -13,8 +13,7 @@ import {
   Typography,
 } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-
-// const BASE_URL = "http://localhost:3000/api";
+const BASE_URL = "http://localhost:3000/api";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -36,7 +35,7 @@ function Login() {
     const data = { email: email, password: password };
 
     axios
-      .post(`http://localhost:3000/api/login`, data)
+      .post(`${BASE_URL}/login`, data)
       .then((response) => {
         console.log(response);
       })
