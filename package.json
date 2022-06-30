@@ -3,13 +3,20 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "build": "npx -p parcel-bundler parcel build index.html"
+    "dev": "parcel src/index.html",
+    "build": "npx -p parcel-bundler parcel build ./src/index.html"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "parcel": "^2.0.0"
+    "eslint": "^8.0.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.26.1",
+    "parcel": "^2.0.0",
+    "prettier": "^2.4.1"
   },
   "dependencies": {
     "@date-io/date-fns": "^2.14.0",
