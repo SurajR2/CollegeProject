@@ -10,7 +10,7 @@ ReactDOM.render(
     <App />
     <Routes>
       {/* The Switch decides which component to show based on the current URL.*/}
-      <Route path="/root/home" element={<Homepage />}></Route>
+      <Route path="/home" element={<Homepage />}></Route>
       <Route path="/" element={<Login />}></Route>
       <Route path="/signup" element={<SignUp />}></Route>
     </Routes>

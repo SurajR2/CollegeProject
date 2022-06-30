@@ -3,8 +3,8 @@ import React, { useState } from "react";
 import axios from "axios";
 
 function SignUp() {
-  const [fullName, setFullName] = useState("");
-  const [userName, setUserName] = useState("");
+  const [fullname, setFullName] = useState("");
+  const [username, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const buttonStyle = { margin: "10px auto", backgroundColor: "green" };
@@ -12,18 +12,21 @@ function SignUp() {
   const submitForm = (e) => {
     e.preventDefault();
     const data = {
-      fullName: fullName,
-      userName: userName,
+      fullname: fullname,
+      username: username,
       email: email,
       password: password,
     };
     axios
-      .post(`${BASE_URL}/users`, data)
+      .post(`${BASE_URL}/register`, data)
       .then((response) => {
-        console.log(response.data.msg);
+        console.log(response);
+        if (response.status == 200) {
+          window.location = "/home";
+        }
       })
       .catch((err) => {
-        console.log(err.response.data.msg);
+        console.log(err.response);
       });
   };
   const paperStyle = {
@@ -41,9 +44,9 @@ function SignUp() {
             <TextField
               style={fieldStyle}
               variant="filled"
-              id="FullName"
+              id="fullname"
               type="text"
-              value={fullName}
+              value={fullname}
               label="Full Name"
               onChange={(e) => setFullName(e.target.value)}
               fullWidth
@@ -52,9 +55,9 @@ function SignUp() {
             <TextField
               style={fieldStyle}
               variant="filled"
-              id="userName"
+              id="username"
               type="text"
-              value={userName}
+              value={username}
               label="User Name"
               onChange={(e) => setUserName(e.target.value)}
               fullWidth

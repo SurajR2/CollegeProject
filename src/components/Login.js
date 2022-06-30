@@ -1,9 +1,9 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React from "react";
 import { useState } from "react";
 import "./login.css";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import {
   Button,
   Grid,
@@ -12,12 +12,11 @@ import {
   Avatar,
   Typography,
 } from "@mui/material";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 const BASE_URL = "http://localhost:3000/api";
-
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const paperStyle = {
     padding: 20,
@@ -37,7 +36,13 @@ function Login() {
     axios
       .post(`${BASE_URL}/login`, data)
       .then((response) => {
-        console.log(response);
+        if (response.status == 200) {
+          window.location = "/home";
+        }
+        if (response.status == 201) {
+          console.error(response);
+          setError("Invalid password or email");
+        }
       })
       .catch((err) => {
         console.log(err.response);
@@ -86,12 +91,13 @@ function Login() {
             >
               Login
             </Button>
+            {error ? <label style={{ color: "red" }}>{error}</label> : null}
             <Typography>
-              <Link to="#">Forgot password ?</Link>
+              <Link to="#">Forgot password?</Link>
             </Typography>
 
             <Typography>
-              Do you have an account ?<Link to="/signup">Sign Up</Link>
+              Do you have an account?<Link to="/signup">Sign Up</Link>
             </Typography>
           </form>
         </Paper>
